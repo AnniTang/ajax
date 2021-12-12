@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热门推荐</title>
+</head>
+ 
+<body>
+    <h2>热门推荐</h2>
+    <div id="demo"></div>
+</body>
+<script>
+    /*
+    document.querySelector('input[type=button]').onclick=function()
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open('post','')
+    }*/
+    //实例化XMLHttpRequest对象
+const xhr = new XMLHttpRequest()
+//初始化一个get请求
+xhr.open("get", "http://cloud-music.pl-fe.cn/personalized?limit=30", true)
+//接收返回值
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+      var res = JSON.parse(xhr.responseText)
+      console.log(res)
+      console.log("请求成功")
+      // do something
+      res=JSON.stringify(res,null,30);
+      demo.innerHTML=res;
+      //document.getElementById("demo").innerHTML = res.result[1].name;
+      
+    } else {
+      console.log("请求失败")
+    }
+  }
+}
+//发送请求
+xhr.send()
+</script>
